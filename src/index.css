@@ -1,0 +1,521 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* CSS Custom Properties for Theme Management */
+:root {
+  /* Light Theme Colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --surface: #ffffff;
+  --surface-elevated: #ffffff;
+  --border-primary: #e2e8f0;
+  --border-secondary: #cbd5e1;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #64748b;
+  --text-muted: #94a3b8;
+  --accent-primary: #2196F3;
+  --accent-secondary: #00BCD4;
+  --success: #4CAF50;
+  --error: #F44336;
+  --warning: #FF9800;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Dark Theme Colors */
+.dark {
+  color-scheme: dark;
+  
+  /* Dark Theme Color Overrides */
+  --bg-primary: #121212;
+  --bg-secondary: #1E1E1E;
+  --bg-tertiary: #2D2D2D;
+  --surface: #1E1E1E;
+  --surface-elevated: #2D2D2D;
+  --border-primary: #374151;
+  --border-secondary: #4B5563;
+  --text-primary: #FFFFFF;
+  --text-secondary: #E0E0E0;
+  --text-tertiary: #B0B0B0;
+  --text-muted: #9CA3AF;
+  --accent-primary: #2196F3;
+  --accent-secondary: #00BCD4;
+  --success: #4CAF50;
+  --error: #F44336;
+  --warning: #FF9800;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
+}
+
+/* Apply theme colors using CSS custom properties */
+body {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* Dark mode component overrides with enhanced styling */
+.dark .bg-white {
+  background-color: var(--surface) !important;
+  border: 1px solid var(--border-primary) !important;
+}
+
+.dark .bg-gray-50 {
+  background-color: var(--bg-primary) !important;
+}
+
+.dark .bg-gray-100 {
+  background-color: var(--bg-tertiary) !important;
+}
+
+.dark .bg-gray-200 {
+  background-color: var(--surface-elevated) !important;
+}
+
+.dark .text-gray-900 {
+  color: var(--text-primary) !important;
+}
+
+.dark .text-gray-800 {
+  color: var(--text-primary) !important;
+}
+
+.dark .text-gray-700 {
+  color: var(--text-secondary) !important;
+}
+
+.dark .text-gray-600 {
+  color: var(--text-tertiary) !important;
+}
+
+.dark .text-gray-500 {
+  color: var(--text-muted) !important;
+}
+
+.dark .text-gray-400 {
+  color: var(--text-muted) !important;
+}
+
+.dark .border-gray-200 {
+  border-color: var(--border-primary) !important;
+}
+
+.dark .border-gray-300 {
+  border-color: var(--border-secondary) !important;
+}
+
+.dark .border-gray-100 {
+  border-color: var(--border-primary) !important;
+}
+
+/* Enhanced hover states for dark mode */
+.dark .hover\:bg-gray-50:hover {
+  background-color: var(--surface-elevated) !important;
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
+}
+
+.dark .hover\:bg-gray-100:hover {
+  background-color: var(--bg-tertiary) !important;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
+}
+
+.dark .hover\:bg-blue-50:hover {
+  background-color: rgba(33, 150, 243, 0.1) !important;
+}
+
+.dark .hover\:bg-green-50:hover {
+  background-color: rgba(76, 175, 80, 0.1) !important;
+}
+
+.dark .hover\:bg-red-50:hover {
+  background-color: rgba(244, 67, 54, 0.1) !important;
+}
+
+/* Enhanced card styling for dark mode */
+.dark .rounded-lg,
+.dark .rounded-xl {
+  background: linear-gradient(145deg, var(--surface), var(--surface-elevated));
+  border: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+}
+
+.dark .rounded-lg:hover,
+.dark .rounded-xl:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+  border-color: var(--accent-primary);
+}
+
+/* Glass morphism effects for dark mode */
+.dark .glass-morphism {
+  background: rgba(30, 30, 30, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Enhanced button styling */
+.dark button {
+  transition: all 0.2s ease;
+}
+
+.dark button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.dark .bg-blue-600 {
+  background: linear-gradient(135deg, #2196F3, #1976D2);
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+}
+
+.dark .bg-blue-600:hover {
+  background: linear-gradient(135deg, #1976D2, #1565C0);
+  box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+}
+
+/* Enhanced input styling for dark mode */
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: var(--surface-elevated) !important;
+  border-color: var(--border-primary) !important;
+  color: var(--text-primary) !important;
+  transition: all 0.2s ease;
+}
+
+.dark input:focus,
+.dark textarea:focus,
+.dark select:focus {
+  background-color: var(--surface) !important;
+  border-color: var(--accent-primary) !important;
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: var(--text-muted) !important;
+}
+
+/* Enhanced navigation styling */
+.dark nav {
+  background: linear-gradient(180deg, var(--bg-secondary), var(--surface));
+  border-right: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Glow effects for interactive elements */
+.dark .glow-on-hover:hover {
+  box-shadow: 0 0 20px rgba(33, 150, 243, 0.3);
+}
+
+/* Enhanced scrollbar for dark mode */
+.dark ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--border-secondary), var(--border-primary));
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--accent-primary), var(--border-secondary));
+}
+
+/* Enhanced chart and data visualization styling */
+.dark .chart-container {
+  background: var(--surface);
+  border: 1px solid var(--border-primary);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Micro-interactions and animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-slide-down {
+  animation: slideDown 0.4s ease-out forwards;
+}
+
+/* Enhanced typing effect with better fullscreen support */
+.typing-effect {
+  border-right: 3px solid #2563EB;
+  animation: typing 3s steps(20, end), blink-caret 1s step-end infinite;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+@keyframes blink-caret {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #2563EB;
+  }
+}
+
+/* Theme transition animations */
+.theme-transition {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Enhanced elevation system for dark mode */
+.dark .elevation-1 {
+  box-shadow: var(--shadow-sm);
+}
+
+.dark .elevation-2 {
+  box-shadow: var(--shadow-md);
+}
+
+.dark .elevation-3 {
+  box-shadow: var(--shadow-lg);
+}
+
+.dark .elevation-4 {
+  box-shadow: var(--shadow-xl);
+}
+
+/* Fullscreen mode fixes - Enhanced for better text visibility */
+@media screen and (min-width: 1920px) {
+  .typing-effect {
+    padding-right: 0.75rem;
+    box-sizing: content-box;
+    min-width: 400px; /* Ensure adequate space for "Track. Progress." */
+  }
+}
+
+/* Ultra-wide screen support */
+@media screen and (min-width: 2560px) {
+  .typing-effect {
+    padding-right: 1rem;
+    min-width: 450px; /* Even more space for ultra-wide screens */
+  }
+}
+
+/* 4K and larger displays */
+@media screen and (min-width: 3840px) {
+  .typing-effect {
+    padding-right: 1.5rem;
+    min-width: 500px;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .typing-effect {
+    animation: none;
+    border-right: none;
+    width: auto !important;
+    overflow: visible !important;
+  }
+}
+
+/* Custom gradient mesh background */
+.gradient-mesh {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.15) 0%, rgba(37, 99, 235, 0.05) 50%, rgba(37, 99, 235, 0.15) 100%);
+  position: relative;
+}
+
+.dark .gradient-mesh {
+  background: linear-gradient(135deg, rgba(18, 18, 18, 0.95) 0%, rgba(30, 30, 30, 0.9) 50%, rgba(45, 45, 45, 0.95) 100%);
+}
+
+.gradient-mesh::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at top left, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
+              radial-gradient(ellipse at bottom right, rgba(37, 99, 235, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.dark .gradient-mesh::before {
+  background: radial-gradient(ellipse at top left, rgba(33, 150, 243, 0.15) 0%, transparent 50%),
+              radial-gradient(ellipse at bottom right, rgba(0, 188, 212, 0.1) 0%, transparent 50%);
+}
+
+/* Enhanced focus states for accessibility */
+.dark *:focus {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.dark *:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.2);
+}
+
+/* Loading states */
+.dark .loading-shimmer {
+  background: linear-gradient(90deg, var(--surface) 25%, var(--surface-elevated) 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Enhanced status indicators */
+.dark .status-online {
+  background: var(--success);
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+}
+
+.dark .status-offline {
+  background: var(--text-muted);
+  box-shadow: 0 0 10px rgba(156, 163, 175, 0.3);
+}
+
+/* Custom utility classes for dark mode */
+.dark-surface {
+  background-color: var(--surface);
+  border: 1px solid var(--border-primary);
+}
+
+.dark-surface-elevated {
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-primary);
+}
+
+.dark-text-primary {
+  color: var(--text-primary);
+}
+
+.dark-text-secondary {
+  color: var(--text-secondary);
+}
+
+.dark-border {
+  border-color: var(--border-primary);
+}
+
+/* Enhanced mobile responsiveness for dark mode */
+@media (max-width: 768px) {
+  .dark .mobile-card {
+    background: var(--surface);
+    border: 1px solid var(--border-primary);
+    border-radius: 16px;
+    padding: 1rem;
+    margin: 0.5rem;
+    box-shadow: var(--shadow-md);
+  }
+}
+
+/* Print styles for dark mode */
+@media print {
+  .dark {
+    --bg-primary: #ffffff;
+    --bg-secondary: #ffffff;
+    --text-primary: #000000;
+    --text-secondary: #333333;
+  }
+}
