@@ -174,15 +174,15 @@ const AnalyticsTab: React.FC = () => {
   const { workoutStats, nutritionStats, goalStats, weeklyProgress, monthlyComparison } = analyticsData;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Analytics</h1>
-          <p className="text-gray-600">Track your progress and performance trends</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Analytics</h1>
+          <p className="text-sm sm:text-base text-gray-600">Track your progress and performance trends</p>
         </div>
         
-        <div className="flex items-center space-x-3">
+        <div className="flex flex-col space-y-3 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-3">
           <select
             value={timeRange}
             onChange={(e) => setTimeRange(e.target.value as any)}
@@ -194,84 +194,86 @@ const AnalyticsTab: React.FC = () => {
             <option value="1y">Last year</option>
           </select>
           
-          <button
-            onClick={loadAnalyticsData}
-            className="p-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-200"
-            title="Refresh data"
-          >
-            <RefreshCw className="w-4 h-4" />
-          </button>
-          
-          <button
-            onClick={exportData}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center space-x-2"
-          >
-            <Download className="w-4 h-4" />
-            <span>Export</span>
-          </button>
+          <div className="flex space-x-2">
+            <button
+              onClick={loadAnalyticsData}
+              className="p-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+              title="Refresh data"
+            >
+              <RefreshCw className="w-4 h-4" />
+            </button>
+            
+            <button
+              onClick={exportData}
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center space-x-2"
+            >
+              <Download className="w-4 h-4" />
+              <span className="hidden sm:inline">Export</span>
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Key Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-6 transition-all duration-300 hover:shadow-lg">
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-              <Activity className="w-6 h-6 text-blue-600" />
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+        {[
+          {
+            title: 'Total Workouts',
+            value: workoutStats.totalWorkouts,
+            change: getChangePercentage(monthlyComparison.currentMonth.workouts, monthlyComparison.previousMonth.workouts),
+            icon: Activity,
+            color: 'text-blue-600',
+            bgColor: 'bg-blue-100'
+          },
+          {
+            title: 'Avg Daily Calories',
+            value: Math.round(nutritionStats.averageCaloriesPerDay),
+            change: getChangePercentage(monthlyComparison.currentMonth.avgCalories, monthlyComparison.previousMonth.avgCalories),
+            icon: Zap,
+            color: 'text-orange-600',
+            bgColor: 'bg-orange-100'
+          },
+          {
+            title: 'Goals Completed',
+            value: goalStats.completed,
+            change: getChangePercentage(monthlyComparison.currentMonth.goalsCompleted, monthlyComparison.previousMonth.goalsCompleted),
+            icon: Target,
+            color: 'text-green-600',
+            bgColor: 'bg-green-100'
+          },
+          {
+            title: 'Workout Frequency',
+            value: workoutStats.workoutFrequency,
+            change: Math.round((workoutStats.totalWorkouts / (timeRange === '7d' ? 7 : timeRange === '30d' ? 30 : timeRange === '90d' ? 90 : 365)) * 100),
+            icon: Award,
+            color: 'text-purple-600',
+            bgColor: 'bg-purple-100'
+          }
+        ].map((stat, index) => {
+          const Icon = stat.icon;
+          
+          return (
+            <div
+              key={index}
+              className="bg-white p-3 sm:p-6 rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] transition-all duration-300 hover:shadow-lg hover:scale-105"
+            >
+              <div className="flex items-center justify-between mb-2 sm:mb-4">
+                <div className={`w-8 h-8 sm:w-12 sm:h-12 ${stat.bgColor} rounded-lg flex items-center justify-center`}>
+                  <Icon className={`w-4 h-4 sm:w-6 sm:h-6 ${stat.color}`} />
+                </div>
+                <span className={`text-xs sm:text-sm font-medium ${getChangeColor(stat.change)}`}>
+                  {stat.change > 0 ? '+' : ''}{stat.change}%
+                </span>
+              </div>
+              
+              <div>
+                <p className="text-lg sm:text-2xl font-bold text-gray-900 mb-1">{stat.value}</p>
+                <p className="text-xs sm:text-sm text-gray-600 mb-1 sm:mb-2">{stat.title}</p>
+                <p className={`text-xs font-medium ${stat.color}`}>vs. previous period</p>
+              </div>
             </div>
-            <span className={`text-sm font-medium ${getChangeColor(getChangePercentage(monthlyComparison.currentMonth.workouts, monthlyComparison.previousMonth.workouts))}`}>
-              {getChangePercentage(monthlyComparison.currentMonth.workouts, monthlyComparison.previousMonth.workouts) > 0 ? '+' : ''}
-              {getChangePercentage(monthlyComparison.currentMonth.workouts, monthlyComparison.previousMonth.workouts)}%
-            </span>
-          </div>
-          <p className="text-2xl font-bold text-gray-900 mb-1">{workoutStats.totalWorkouts}</p>
-          <p className="text-sm text-gray-600">Total Workouts</p>
-          <p className="text-xs text-gray-500 mt-1">vs. previous period</p>
-        </div>
-
-        <div className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-6 transition-all duration-300 hover:shadow-lg">
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-              <Zap className="w-6 h-6 text-green-600" />
-            </div>
-            <span className={`text-sm font-medium ${getChangeColor(getChangePercentage(monthlyComparison.currentMonth.avgCalories, monthlyComparison.previousMonth.avgCalories))}`}>
-              {getChangePercentage(monthlyComparison.currentMonth.avgCalories, monthlyComparison.previousMonth.avgCalories) > 0 ? '+' : ''}
-              {getChangePercentage(monthlyComparison.currentMonth.avgCalories, monthlyComparison.previousMonth.avgCalories)}%
-            </span>
-          </div>
-          <p className="text-2xl font-bold text-gray-900 mb-1">{Math.round(nutritionStats.averageCaloriesPerDay)}</p>
-          <p className="text-sm text-gray-600">Avg Daily Calories</p>
-          <p className="text-xs text-gray-500 mt-1">vs. previous period</p>
-        </div>
-
-        <div className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-6 transition-all duration-300 hover:shadow-lg">
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-              <Target className="w-6 h-6 text-purple-600" />
-            </div>
-            <span className={`text-sm font-medium ${getChangeColor(getChangePercentage(monthlyComparison.currentMonth.goalsCompleted, monthlyComparison.previousMonth.goalsCompleted))}`}>
-              {getChangePercentage(monthlyComparison.currentMonth.goalsCompleted, monthlyComparison.previousMonth.goalsCompleted) > 0 ? '+' : ''}
-              {getChangePercentage(monthlyComparison.currentMonth.goalsCompleted, monthlyComparison.previousMonth.goalsCompleted)}%
-            </span>
-          </div>
-          <p className="text-2xl font-bold text-gray-900 mb-1">{goalStats.completed}</p>
-          <p className="text-sm text-gray-600">Goals Completed</p>
-          <p className="text-xs text-gray-500 mt-1">vs. previous period</p>
-        </div>
-
-        <div className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-6 transition-all duration-300 hover:shadow-lg">
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-              <Award className="w-6 h-6 text-orange-600" />
-            </div>
-            <span className="text-sm font-medium text-green-600">
-              {Math.round((workoutStats.totalWorkouts / (timeRange === '7d' ? 7 : timeRange === '30d' ? 30 : timeRange === '90d' ? 90 : 365)) * 100)}%
-            </span>
-          </div>
-          <p className="text-2xl font-bold text-gray-900 mb-1">{workoutStats.workoutFrequency}</p>
-          <p className="text-sm text-gray-600">Workout Frequency</p>
-          <p className="text-xs text-gray-500 mt-1">workouts per day</p>
-        </div>
+          );
+        })}
       </div>
 
       {/* Historical Chart */}
@@ -281,137 +283,90 @@ const AnalyticsTab: React.FC = () => {
       />
 
       {/* Detailed Stats */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Workout Performance */}
-        <div className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-6 transition-all duration-300 hover:shadow-lg">
-          <h2 className="text-lg font-semibold text-gray-900 mb-6">Workout Performance</h2>
+        <div className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-4 sm:p-6 transition-all duration-300 hover:shadow-lg">
+          <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-4 sm:mb-6">Workout Performance</h2>
           
-          <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-              <div>
-                <p className="font-medium text-gray-900">Total Sets</p>
-                <p className="text-sm text-gray-600">Across all workouts</p>
-              </div>
-              <span className="text-2xl font-bold text-blue-600">{workoutStats.totalSets}</span>
-            </div>
-            
-            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-              <div>
-                <p className="font-medium text-gray-900">Total Reps</p>
-                <p className="text-sm text-gray-600">Volume completed</p>
-              </div>
-              <span className="text-2xl font-bold text-green-600">{workoutStats.totalReps}</span>
-            </div>
-            
-            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-              <div>
-                <p className="font-medium text-gray-900">Unique Exercises</p>
-                <p className="text-sm text-gray-600">Exercise variety</p>
-              </div>
-              <span className="text-2xl font-bold text-purple-600">{workoutStats.uniqueExercises}</span>
-            </div>
-            
-            {workoutStats.averageWeight > 0 && (
-              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+          <div className="space-y-3 sm:space-y-4">
+            {[
+              { label: 'Total Sets', value: workoutStats.totalSets, color: 'text-blue-600' },
+              { label: 'Total Reps', value: workoutStats.totalReps, color: 'text-green-600' },
+              { label: 'Unique Exercises', value: workoutStats.uniqueExercises, color: 'text-purple-600' },
+              ...(workoutStats.averageWeight > 0 ? [{ label: 'Average Weight', value: `${workoutStats.averageWeight} lbs`, color: 'text-orange-600' }] : [])
+            ].map((item, index) => (
+              <div key={index} className="flex items-center justify-between p-3 sm:p-4 bg-gray-50 rounded-lg">
                 <div>
-                  <p className="font-medium text-gray-900">Average Weight</p>
-                  <p className="text-sm text-gray-600">Per exercise</p>
+                  <p className="text-sm sm:text-base font-medium text-gray-900">{item.label}</p>
+                  <p className="text-xs sm:text-sm text-gray-600">
+                    {item.label === 'Total Sets' ? 'Across all workouts' :
+                     item.label === 'Total Reps' ? 'Volume completed' :
+                     item.label === 'Unique Exercises' ? 'Exercise variety' :
+                     'Per exercise'}
+                  </p>
                 </div>
-                <span className="text-2xl font-bold text-orange-600">{workoutStats.averageWeight} lbs</span>
+                <span className={`text-lg sm:text-2xl font-bold ${item.color}`}>{item.value}</span>
               </div>
-            )}
+            ))}
           </div>
         </div>
 
         {/* Nutrition Breakdown */}
-        <div className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-6 transition-all duration-300 hover:shadow-lg">
-          <h2 className="text-lg font-semibold text-gray-900 mb-6">Nutrition Breakdown</h2>
+        <div className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-4 sm:p-6 transition-all duration-300 hover:shadow-lg">
+          <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-4 sm:mb-6">Nutrition Breakdown</h2>
           
-          <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-              <div>
-                <p className="font-medium text-gray-900">Total Calories</p>
-                <p className="text-sm text-gray-600">Over {timeRange}</p>
+          <div className="space-y-3 sm:space-y-4">
+            {[
+              { label: 'Total Calories', value: nutritionStats.totalCalories, unit: '', color: 'text-blue-600' },
+              { label: 'Total Protein', value: Math.round(nutritionStats.totalProtein), unit: 'g', color: 'text-green-600' },
+              { label: 'Total Carbs', value: Math.round(nutritionStats.totalCarbs), unit: 'g', color: 'text-orange-600' },
+              { label: 'Total Fats', value: Math.round(nutritionStats.totalFats), unit: 'g', color: 'text-purple-600' }
+            ].map((item, index) => (
+              <div key={index} className="flex items-center justify-between p-3 sm:p-4 bg-gray-50 rounded-lg">
+                <div>
+                  <p className="text-sm sm:text-base font-medium text-gray-900">{item.label}</p>
+                  <p className="text-xs sm:text-sm text-gray-600">Over {timeRange}</p>
+                </div>
+                <span className={`text-lg sm:text-2xl font-bold ${item.color}`}>{item.value}{item.unit}</span>
               </div>
-              <span className="text-2xl font-bold text-blue-600">{nutritionStats.totalCalories}</span>
-            </div>
-            
-            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-              <div>
-                <p className="font-medium text-gray-900">Total Protein</p>
-                <p className="text-sm text-gray-600">Grams consumed</p>
-              </div>
-              <span className="text-2xl font-bold text-green-600">{Math.round(nutritionStats.totalProtein)}g</span>
-            </div>
-            
-            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-              <div>
-                <p className="font-medium text-gray-900">Total Carbs</p>
-                <p className="text-sm text-gray-600">Grams consumed</p>
-              </div>
-              <span className="text-2xl font-bold text-orange-600">{Math.round(nutritionStats.totalCarbs)}g</span>
-            </div>
-            
-            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-              <div>
-                <p className="font-medium text-gray-900">Total Fats</p>
-                <p className="text-sm text-gray-600">Grams consumed</p>
-              </div>
-              <span className="text-2xl font-bold text-purple-600">{Math.round(nutritionStats.totalFats)}g</span>
-            </div>
+            ))}
           </div>
         </div>
       </div>
 
       {/* Goals Overview */}
-      <div className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-6 transition-all duration-300 hover:shadow-lg">
-        <h2 className="text-lg font-semibold text-gray-900 mb-6">Goals Overview</h2>
+      <div className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-4 sm:p-6 transition-all duration-300 hover:shadow-lg">
+        <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-4 sm:mb-6">Goals Overview</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <div className="text-center">
-            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <Target className="w-8 h-8 text-blue-600" />
-            </div>
-            <p className="text-2xl font-bold text-gray-900 mb-1">{goalStats.total}</p>
-            <p className="text-sm text-gray-600">Total Goals</p>
-          </div>
-          
-          <div className="text-center">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <Award className="w-8 h-8 text-green-600" />
-            </div>
-            <p className="text-2xl font-bold text-gray-900 mb-1">{goalStats.completed}</p>
-            <p className="text-sm text-gray-600">Completed</p>
-          </div>
-          
-          <div className="text-center">
-            <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <TrendingUp className="w-8 h-8 text-orange-600" />
-            </div>
-            <p className="text-2xl font-bold text-gray-900 mb-1">{goalStats.inProgress}</p>
-            <p className="text-sm text-gray-600">In Progress</p>
-          </div>
-          
-          <div className="text-center">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <Calendar className="w-8 h-8 text-gray-600" />
-            </div>
-            <p className="text-2xl font-bold text-gray-900 mb-1">
-              {goalStats.total > 0 ? Math.round((goalStats.completed / goalStats.total) * 100) : 0}%
-            </p>
-            <p className="text-sm text-gray-600">Success Rate</p>
-          </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+          {[
+            { label: 'Total Goals', value: goalStats.total, icon: Target, color: 'text-blue-600', bgColor: 'bg-blue-100' },
+            { label: 'Completed', value: goalStats.completed, icon: Award, color: 'text-green-600', bgColor: 'bg-green-100' },
+            { label: 'In Progress', value: goalStats.inProgress, icon: TrendingUp, color: 'text-orange-600', bgColor: 'bg-orange-100' },
+            { label: 'Success Rate', value: `${goalStats.total > 0 ? Math.round((goalStats.completed / goalStats.total) * 100) : 0}%`, icon: Calendar, color: 'text-gray-600', bgColor: 'bg-gray-100' }
+          ].map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <div key={index} className="text-center">
+                <div className={`w-12 h-12 sm:w-16 sm:h-16 ${item.bgColor} rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3`}>
+                  <Icon className={`w-6 h-6 sm:w-8 sm:h-8 ${item.color}`} />
+                </div>
+                <p className="text-lg sm:text-2xl font-bold text-gray-900 mb-1">{item.value}</p>
+                <p className="text-xs sm:text-sm text-gray-600">{item.label}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
 
       {/* Monthly Report */}
-      <div className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-6 transition-all duration-300 hover:shadow-lg">
-        <h2 className="text-lg font-semibold text-gray-900 mb-6">Monthly Performance Report</h2>
+      <div className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-4 sm:p-6 transition-all duration-300 hover:shadow-lg">
+        <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-4 sm:mb-6">Monthly Performance Report</h2>
         
         <div className="prose max-w-none">
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-            <h3 className="text-lg font-medium text-blue-900 mb-2">Key Highlights</h3>
-            <ul className="text-blue-800 space-y-1">
+            <h3 className="text-base sm:text-lg font-medium text-blue-900 mb-2">Key Highlights</h3>
+            <ul className="text-blue-800 space-y-1 text-sm sm:text-base">
               <li>• Completed {workoutStats.totalWorkouts} workouts this period</li>
               <li>• Maintained an average of {Math.round(nutritionStats.averageCaloriesPerDay)} calories per day</li>
               <li>• Achieved {goalStats.completed} fitness goals</li>
@@ -420,8 +375,8 @@ const AnalyticsTab: React.FC = () => {
           </div>
           
           <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-            <h3 className="text-lg font-medium text-green-900 mb-2">Recommendations</h3>
-            <ul className="text-green-800 space-y-1">
+            <h3 className="text-base sm:text-lg font-medium text-green-900 mb-2">Recommendations</h3>
+            <ul className="text-green-800 space-y-1 text-sm sm:text-base">
               <li>• {workoutStats.workoutFrequency < 0.5 ? 'Try to increase workout frequency for better results' : 'Great job maintaining consistent workout schedule!'}</li>
               <li>• {nutritionStats.totalProtein / (timeRange === '7d' ? 7 : 30) < 100 ? 'Consider increasing protein intake for muscle recovery' : 'Excellent protein intake for muscle building!'}</li>
               <li>• {goalStats.inProgress > goalStats.completed ? 'Focus on completing current goals before setting new ones' : 'Ready to set new challenging goals!'}</li>

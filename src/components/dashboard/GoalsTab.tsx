@@ -231,17 +231,17 @@ const GoalsTab: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Goals</h1>
-          <p className="text-gray-600">Set targets and track your fitness journey</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Goals</h1>
+          <p className="text-sm sm:text-base text-gray-600">Set targets and track your fitness journey</p>
         </div>
         
         <button
           onClick={() => setShowAddForm(true)}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center space-x-2"
+          className="w-full sm:w-auto bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center justify-center space-x-2"
         >
           <Plus className="w-4 h-4" />
           <span>New Goal</span>
@@ -249,9 +249,9 @@ const GoalsTab: React.FC = () => {
       </div>
 
       {/* Goal Templates */}
-      <div className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-6 transition-all duration-300 hover:shadow-lg">
+      <div className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-4 sm:p-6 transition-all duration-300 hover:shadow-lg">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Start Templates</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {goalTemplates.map((template, index) => {
             const goalType = goalTypes.find(t => t.value === template.type);
             const Icon = goalType?.icon || Target;
@@ -263,12 +263,12 @@ const GoalsTab: React.FC = () => {
                 onClick={() => useTemplate(template)}
               >
                 <div className="flex items-center space-x-3 mb-2">
-                  <div className={`w-8 h-8 bg-${goalType?.color}-100 rounded-lg flex items-center justify-center`}>
-                    <Icon className={`w-4 h-4 text-${goalType?.color}-600`} />
+                  <div className={`w-6 h-6 sm:w-8 sm:h-8 bg-${goalType?.color}-100 rounded-lg flex items-center justify-center`}>
+                    <Icon className={`w-3 h-3 sm:w-4 sm:h-4 text-${goalType?.color}-600`} />
                   </div>
-                  <h3 className="font-medium text-gray-900">{template.title}</h3>
+                  <h3 className="font-medium text-gray-900 text-sm sm:text-base">{template.title}</h3>
                 </div>
-                <p className="text-sm text-gray-600 mb-2">{template.description}</p>
+                <p className="text-xs sm:text-sm text-gray-600 mb-2">{template.description}</p>
                 <p className="text-xs text-gray-500">{template.duration_weeks} weeks</p>
               </div>
             );
@@ -277,7 +277,7 @@ const GoalsTab: React.FC = () => {
       </div>
 
       {/* Filters */}
-      <div className="flex space-x-2">
+      <div className="flex flex-wrap gap-2">
         {[
           { value: 'all', label: 'All Goals' },
           { value: 'in_progress', label: 'In Progress' },
@@ -287,7 +287,7 @@ const GoalsTab: React.FC = () => {
           <button
             key={filter.value}
             onClick={() => setFilterStatus(filter.value as any)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
+            className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors duration-200 ${
               filterStatus === filter.value
                 ? 'bg-blue-600 text-white'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -450,27 +450,27 @@ const GoalsTab: React.FC = () => {
             const daysRemaining = getDaysRemaining(goal.end_date);
             
             return (
-              <div key={goal.id} className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-6 transition-all duration-300 hover:shadow-lg">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-start space-x-4">
-                    <div className={`w-12 h-12 bg-${goalType?.color}-100 rounded-lg flex items-center justify-center`}>
-                      <Icon className={`w-6 h-6 text-${goalType?.color}-600`} />
+              <div key={goal.id} className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-4 sm:p-6 transition-all duration-300 hover:shadow-lg">
+                <div className="flex flex-col space-y-4 sm:flex-row sm:items-start sm:justify-between sm:space-y-0">
+                  <div className="flex items-start space-x-3 sm:space-x-4 flex-1 min-w-0">
+                    <div className={`w-10 h-10 sm:w-12 sm:h-12 bg-${goalType?.color}-100 rounded-lg flex items-center justify-center flex-shrink-0`}>
+                      <Icon className={`w-5 h-5 sm:w-6 sm:h-6 text-${goalType?.color}-600`} />
                     </div>
                     
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-2 mb-1">
-                        <h3 className="text-lg font-semibold text-gray-900">{goal.title}</h3>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(goal.status)}`}>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-col space-y-2 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-2 mb-1">
+                        <h3 className="text-base sm:text-lg font-semibold text-gray-900 truncate">{goal.title}</h3>
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium w-fit ${getStatusColor(goal.status)}`}>
                           <StatusIcon className="w-3 h-3 inline mr-1" />
                           {goal.status.replace('_', ' ')}
                         </span>
                       </div>
                       
                       {goal.description && (
-                        <p className="text-gray-600 mb-2">{goal.description}</p>
+                        <p className="text-sm sm:text-base text-gray-600 mb-2 line-clamp-2">{goal.description}</p>
                       )}
                       
-                      <div className="flex items-center space-x-4 text-sm text-gray-500">
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-500">
                         <span>Target: {goal.target_value}</span>
                         <span>Current: {goal.current_value}</span>
                         {daysRemaining > 0 ? (
@@ -482,19 +482,20 @@ const GoalsTab: React.FC = () => {
                     </div>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  {/* Action Buttons - Mobile Optimized */}
+                  <div className="flex items-center justify-end space-x-1 sm:space-x-2 flex-shrink-0">
                     {goal.status === 'in_progress' && progress >= 100 && (
                       <button
                         onClick={() => markAsCompleted(goal.id)}
                         className="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors duration-200"
                         title="Mark as completed"
                       >
-                        <CheckCircle className="w-5 h-5" />
+                        <CheckCircle className="w-4 h-4" />
                       </button>
                     )}
                     
                     <button
-                      className="p-2 text-gray-400 hover:text-blue-600 transition-colors duration-200"
+                      className="p-2 text-gray-400 hover:text-blue-600 transition-colors duration-200 rounded-lg hover:bg-blue-50"
                       title="Share goal"
                     >
                       <Share2 className="w-4 h-4" />
@@ -502,14 +503,16 @@ const GoalsTab: React.FC = () => {
                     
                     <button
                       onClick={() => startEdit(goal)}
-                      className="p-2 text-gray-400 hover:text-blue-600 transition-colors duration-200"
+                      className="p-2 text-gray-400 hover:text-blue-600 transition-colors duration-200 rounded-lg hover:bg-blue-50"
+                      title="Edit goal"
                     >
                       <Edit3 className="w-4 h-4" />
                     </button>
                     
                     <button
                       onClick={() => handleDelete(goal.id)}
-                      className="p-2 text-gray-400 hover:text-red-600 transition-colors duration-200"
+                      className="p-2 text-gray-400 hover:text-red-600 transition-colors duration-200 rounded-lg hover:bg-red-50"
+                      title="Delete goal"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -517,7 +520,7 @@ const GoalsTab: React.FC = () => {
                 </div>
 
                 {/* Progress Bar */}
-                <div className="mb-4">
+                <div className="mt-4">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm font-medium text-gray-700">Progress</span>
                     <span className="text-sm text-gray-600">{Math.round(progress)}%</span>
@@ -532,7 +535,7 @@ const GoalsTab: React.FC = () => {
 
                 {/* Update Progress */}
                 {goal.status === 'in_progress' && (
-                  <div className="flex items-center space-x-3">
+                  <div className="flex flex-col space-y-3 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-3 mt-4">
                     <input
                       type="number"
                       step="0.1"
@@ -549,10 +552,11 @@ const GoalsTab: React.FC = () => {
                       }}
                     />
                     <button
-                      className="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200 text-sm"
+                      className="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200 text-sm flex items-center justify-center space-x-2"
                       title="Add progress photo"
                     >
                       <Camera className="w-4 h-4" />
+                      <span className="sm:hidden">Photo</span>
                     </button>
                   </div>
                 )}
@@ -560,15 +564,15 @@ const GoalsTab: React.FC = () => {
             );
           })
         ) : (
-          <div className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-12 text-center transition-all duration-300 hover:shadow-lg">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Target className="w-8 h-8 text-gray-400" />
+          <div className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-8 sm:p-12 text-center transition-all duration-300 hover:shadow-lg">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Target className="w-6 h-6 sm:w-8 sm:h-8 text-gray-400" />
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No goals yet</h3>
-            <p className="text-gray-600 mb-6">Set your first fitness goal to start tracking progress</p>
+            <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2">No goals yet</h3>
+            <p className="text-sm sm:text-base text-gray-600 mb-6">Set your first fitness goal to start tracking progress</p>
             <button
               onClick={() => setShowAddForm(true)}
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200"
+              className="bg-blue-600 text-white px-4 sm:px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200"
             >
               Create Your First Goal
             </button>

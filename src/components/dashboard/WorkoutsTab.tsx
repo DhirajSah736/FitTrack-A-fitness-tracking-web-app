@@ -250,20 +250,20 @@ const WorkoutsTab: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Workouts</h1>
-          <p className="text-gray-600">Track your exercises and build strength</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Workouts</h1>
+          <p className="text-sm sm:text-base text-gray-600">Track your exercises and build strength</p>
         </div>
         
-        <div className="flex items-center space-x-3">
+        <div className="flex flex-col space-y-3 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-3">
           {/* Rest Timer */}
           {(restTimer > 0 || isTimerRunning) && (
-            <div className="flex items-center space-x-2 bg-blue-50 px-4 py-2 rounded-lg">
+            <div className="flex items-center justify-center space-x-2 bg-blue-50 px-3 py-2 rounded-lg">
               <Clock className="w-4 h-4 text-blue-600" />
-              <span className="font-mono text-blue-600">{formatTime(restTimer)}</span>
+              <span className="font-mono text-blue-600 text-sm">{formatTime(restTimer)}</span>
               <button
                 onClick={stopRestTimer}
                 className="text-blue-600 hover:text-blue-700"
@@ -275,7 +275,7 @@ const WorkoutsTab: React.FC = () => {
           
           <button
             onClick={() => setShowAddForm(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center space-x-2"
+            className="w-full sm:w-auto bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center justify-center space-x-2"
           >
             <Plus className="w-4 h-4" />
             <span>Log Workout</span>
@@ -284,7 +284,7 @@ const WorkoutsTab: React.FC = () => {
       </div>
 
       {/* Quick Rest Timer Buttons */}
-      <div className="flex items-center space-x-2">
+      <div className="flex flex-wrap items-center gap-2">
         <span className="text-sm text-gray-600">Quick rest:</span>
         {[30, 60, 90, 120].map(seconds => (
           <button
@@ -298,7 +298,7 @@ const WorkoutsTab: React.FC = () => {
       </div>
 
       {/* Filters and Search */}
-      <div className="flex flex-col sm:flex-row gap-4">
+      <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
           <input
@@ -310,40 +310,42 @@ const WorkoutsTab: React.FC = () => {
           />
         </div>
         
-        <select
-          value={filterCategory}
-          onChange={(e) => setFilterCategory(e.target.value)}
-          className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-        >
-          <option value="all">All Categories</option>
-          <option value="strength">Strength</option>
-          <option value="cardio">Cardio</option>
-        </select>
+        <div className="flex space-x-2">
+          <select
+            value={filterCategory}
+            onChange={(e) => setFilterCategory(e.target.value)}
+            className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          >
+            <option value="all">All Categories</option>
+            <option value="strength">Strength</option>
+            <option value="cardio">Cardio</option>
+          </select>
 
-        <div className="flex bg-gray-100 rounded-lg p-1">
-          <button
-            onClick={() => setViewMode('list')}
-            className={`px-3 py-1 rounded-md text-sm transition-colors duration-200 ${
-              viewMode === 'list' ? 'bg-white shadow-sm' : 'text-gray-600'
-            }`}
-          >
-            List
-          </button>
-          <button
-            onClick={() => setViewMode('calendar')}
-            className={`px-3 py-1 rounded-md text-sm transition-colors duration-200 ${
-              viewMode === 'calendar' ? 'bg-white shadow-sm' : 'text-gray-600'
-            }`}
-          >
-            Calendar
-          </button>
+          <div className="flex bg-gray-100 rounded-lg p-1">
+            <button
+              onClick={() => setViewMode('list')}
+              className={`px-3 py-1 rounded-md text-sm transition-colors duration-200 ${
+                viewMode === 'list' ? 'bg-white shadow-sm' : 'text-gray-600'
+              }`}
+            >
+              List
+            </button>
+            <button
+              onClick={() => setViewMode('calendar')}
+              className={`px-3 py-1 rounded-md text-sm transition-colors duration-200 ${
+                viewMode === 'calendar' ? 'bg-white shadow-sm' : 'text-gray-600'
+              }`}
+            >
+              Calendar
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Workout Templates */}
-      <div className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-6 transition-all duration-300 hover:shadow-lg">
+      <div className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-4 sm:p-6 transition-all duration-300 hover:shadow-lg">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">Workout Templates</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {workoutTemplates.map(template => (
             <div
               key={template.id}
@@ -351,7 +353,7 @@ const WorkoutsTab: React.FC = () => {
               onClick={() => useTemplate(template)}
             >
               <div className="flex items-center justify-between mb-2">
-                <h3 className="font-medium text-gray-900">{template.name}</h3>
+                <h3 className="font-medium text-gray-900 text-sm sm:text-base">{template.name}</h3>
                 <span className="text-xs bg-gray-100 px-2 py-1 rounded">{template.category}</span>
               </div>
               <p className="text-sm text-gray-600">{template.exercises.length} exercises</p>
@@ -521,61 +523,64 @@ const WorkoutsTab: React.FC = () => {
         {filteredWorkouts.length > 0 ? (
           <div className="divide-y divide-gray-200">
             {filteredWorkouts.map(workout => (
-              <div key={workout.id} className="p-6 hover:bg-gray-50 transition-colors duration-200">
-                <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-3 mb-2">
-                      <h3 className="text-lg font-semibold text-gray-900">
+              <div key={workout.id} className="p-4 sm:p-6 hover:bg-gray-50 transition-colors duration-200">
+                <div className="flex flex-col space-y-3 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-col space-y-2 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-3 mb-2">
+                      <h3 className="text-base sm:text-lg font-semibold text-gray-900 truncate">
                         {workout.exercise_name}
                       </h3>
                       {workout.weight && (
-                        <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">
+                        <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs sm:text-sm w-fit">
                           Strength
                         </span>
                       )}
                     </div>
                     
-                    <div className="flex items-center space-x-6 text-sm text-gray-600">
+                    <div className="flex flex-wrap items-center gap-3 sm:gap-6 text-xs sm:text-sm text-gray-600">
                       <div className="flex items-center space-x-1">
-                        <Repeat className="w-4 h-4" />
+                        <Repeat className="w-3 h-3 sm:w-4 sm:h-4" />
                         <span>{workout.sets} sets × {workout.reps} reps</span>
                       </div>
                       
                       {workout.weight && (
                         <div className="flex items-center space-x-1">
-                          <Weight className="w-4 h-4" />
+                          <Weight className="w-3 h-3 sm:w-4 sm:h-4" />
                           <span>{workout.weight} lbs</span>
                         </div>
                       )}
                       
                       {workout.duration && (
                         <div className="flex items-center space-x-1">
-                          <Clock className="w-4 h-4" />
+                          <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
                           <span>{workout.duration}</span>
                         </div>
                       )}
                       
                       <div className="flex items-center space-x-1">
-                        <Calendar className="w-4 h-4" />
+                        <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
                         <span>{new Date(workout.created_at).toLocaleDateString()}</span>
                       </div>
                     </div>
                     
                     {workout.notes && (
-                      <p className="mt-2 text-sm text-gray-600">{workout.notes}</p>
+                      <p className="mt-2 text-xs sm:text-sm text-gray-600 line-clamp-2">{workout.notes}</p>
                     )}
                   </div>
                   
-                  <div className="flex items-center space-x-2">
+                  {/* Action Buttons - Mobile Optimized */}
+                  <div className="flex items-center justify-end space-x-1 sm:space-x-2 flex-shrink-0">
                     <button
                       onClick={() => startEdit(workout)}
-                      className="p-2 text-gray-400 hover:text-blue-600 transition-colors duration-200"
+                      className="p-2 text-gray-400 hover:text-blue-600 transition-colors duration-200 rounded-lg hover:bg-blue-50"
+                      title="Edit workout"
                     >
                       <Edit3 className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => handleDelete(workout.id)}
-                      className="p-2 text-gray-400 hover:text-red-600 transition-colors duration-200"
+                      className="p-2 text-gray-400 hover:text-red-600 transition-colors duration-200 rounded-lg hover:bg-red-50"
+                      title="Delete workout"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -585,15 +590,15 @@ const WorkoutsTab: React.FC = () => {
             ))}
           </div>
         ) : (
-          <div className="p-12 text-center">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Weight className="w-8 h-8 text-gray-400" />
+          <div className="p-8 sm:p-12 text-center">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Weight className="w-6 h-6 sm:w-8 sm:h-8 text-gray-400" />
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No workouts yet</h3>
-            <p className="text-gray-600 mb-6">Start logging your exercises to track your progress</p>
+            <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2">No workouts yet</h3>
+            <p className="text-sm sm:text-base text-gray-600 mb-6">Start logging your exercises to track your progress</p>
             <button
               onClick={() => setShowAddForm(true)}
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200"
+              className="bg-blue-600 text-white px-4 sm:px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200"
             >
               Log Your First Workout
             </button>

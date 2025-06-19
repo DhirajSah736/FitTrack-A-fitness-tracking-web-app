@@ -231,15 +231,15 @@ const NutritionTab: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Nutrition</h1>
-          <p className="text-gray-600">Track your meals and reach your nutrition goals</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Nutrition</h1>
+          <p className="text-sm sm:text-base text-gray-600">Track your meals and reach your nutrition goals</p>
         </div>
         
-        <div className="flex items-center space-x-3">
+        <div className="flex flex-col space-y-3 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-3">
           <input
             type="date"
             value={selectedDate}
@@ -248,7 +248,7 @@ const NutritionTab: React.FC = () => {
           />
           <button
             onClick={() => setShowAddForm(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center space-x-2"
+            className="w-full sm:w-auto bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center justify-center space-x-2"
           >
             <Plus className="w-4 h-4" />
             <span>Add Meal</span>
@@ -257,186 +257,186 @@ const NutritionTab: React.FC = () => {
       </div>
 
       {/* Daily Progress */}
-      <div className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-6 transition-all duration-300 hover:shadow-lg">
+      <div className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] p-4 sm:p-6 transition-all duration-300 hover:shadow-lg">
         <h2 className="text-lg font-semibold text-gray-900 mb-6">Today's Progress</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
           {/* Calories */}
           <div className="text-center">
-            <div className="relative w-20 h-20 mx-auto mb-3">
-              <svg className="w-20 h-20 transform -rotate-90">
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3">
+              <svg className="w-16 h-16 sm:w-20 sm:h-20 transform -rotate-90">
                 <circle
-                  cx="40"
-                  cy="40"
-                  r="36"
+                  cx="32"
+                  cy="32"
+                  r="28"
                   stroke="currentColor"
-                  strokeWidth="8"
+                  strokeWidth="6"
                   fill="none"
                   className="text-gray-200"
                 />
                 <circle
-                  cx="40"
-                  cy="40"
-                  r="36"
+                  cx="32"
+                  cy="32"
+                  r="28"
                   stroke="currentColor"
-                  strokeWidth="8"
+                  strokeWidth="6"
                   fill="none"
-                  strokeDasharray={`${2 * Math.PI * 36}`}
-                  strokeDashoffset={`${2 * Math.PI * 36 * (1 - getProgressPercentage(todayTotals.calories, nutritionGoals.calories) / 100)}`}
+                  strokeDasharray={`${2 * Math.PI * 28}`}
+                  strokeDashoffset={`${2 * Math.PI * 28 * (1 - getProgressPercentage(todayTotals.calories, nutritionGoals.calories) / 100)}`}
                   className="text-blue-600 transition-all duration-300"
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-sm font-bold text-gray-900">
+                <span className="text-xs sm:text-sm font-bold text-gray-900">
                   {Math.round(getProgressPercentage(todayTotals.calories, nutritionGoals.calories))}%
                 </span>
               </div>
             </div>
-            <p className="text-sm font-medium text-gray-900">Calories</p>
+            <p className="text-xs sm:text-sm font-medium text-gray-900">Calories</p>
             <p className="text-xs text-gray-600">{todayTotals.calories} / {nutritionGoals.calories}</p>
           </div>
 
           {/* Protein */}
           <div className="text-center">
-            <div className="relative w-20 h-20 mx-auto mb-3">
-              <svg className="w-20 h-20 transform -rotate-90">
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3">
+              <svg className="w-16 h-16 sm:w-20 sm:h-20 transform -rotate-90">
                 <circle
-                  cx="40"
-                  cy="40"
-                  r="36"
+                  cx="32"
+                  cy="32"
+                  r="28"
                   stroke="currentColor"
-                  strokeWidth="8"
+                  strokeWidth="6"
                   fill="none"
                   className="text-gray-200"
                 />
                 <circle
-                  cx="40"
-                  cy="40"
-                  r="36"
+                  cx="32"
+                  cy="32"
+                  r="28"
                   stroke="currentColor"
-                  strokeWidth="8"
+                  strokeWidth="6"
                   fill="none"
-                  strokeDasharray={`${2 * Math.PI * 36}`}
-                  strokeDashoffset={`${2 * Math.PI * 36 * (1 - getProgressPercentage(todayTotals.protein, nutritionGoals.protein) / 100)}`}
+                  strokeDasharray={`${2 * Math.PI * 28}`}
+                  strokeDashoffset={`${2 * Math.PI * 28 * (1 - getProgressPercentage(todayTotals.protein, nutritionGoals.protein) / 100)}`}
                   className="text-green-600 transition-all duration-300"
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-sm font-bold text-gray-900">
+                <span className="text-xs sm:text-sm font-bold text-gray-900">
                   {Math.round(getProgressPercentage(todayTotals.protein, nutritionGoals.protein))}%
                 </span>
               </div>
             </div>
-            <p className="text-sm font-medium text-gray-900">Protein</p>
+            <p className="text-xs sm:text-sm font-medium text-gray-900">Protein</p>
             <p className="text-xs text-gray-600">{Math.round(todayTotals.protein)}g / {nutritionGoals.protein}g</p>
           </div>
 
           {/* Carbs */}
           <div className="text-center">
-            <div className="relative w-20 h-20 mx-auto mb-3">
-              <svg className="w-20 h-20 transform -rotate-90">
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3">
+              <svg className="w-16 h-16 sm:w-20 sm:h-20 transform -rotate-90">
                 <circle
-                  cx="40"
-                  cy="40"
-                  r="36"
+                  cx="32"
+                  cy="32"
+                  r="28"
                   stroke="currentColor"
-                  strokeWidth="8"
+                  strokeWidth="6"
                   fill="none"
                   className="text-gray-200"
                 />
                 <circle
-                  cx="40"
-                  cy="40"
-                  r="36"
+                  cx="32"
+                  cy="32"
+                  r="28"
                   stroke="currentColor"
-                  strokeWidth="8"
+                  strokeWidth="6"
                   fill="none"
-                  strokeDasharray={`${2 * Math.PI * 36}`}
-                  strokeDashoffset={`${2 * Math.PI * 36 * (1 - getProgressPercentage(todayTotals.carbs, nutritionGoals.carbs) / 100)}`}
+                  strokeDasharray={`${2 * Math.PI * 28}`}
+                  strokeDashoffset={`${2 * Math.PI * 28 * (1 - getProgressPercentage(todayTotals.carbs, nutritionGoals.carbs) / 100)}`}
                   className="text-orange-600 transition-all duration-300"
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-sm font-bold text-gray-900">
+                <span className="text-xs sm:text-sm font-bold text-gray-900">
                   {Math.round(getProgressPercentage(todayTotals.carbs, nutritionGoals.carbs))}%
                 </span>
               </div>
             </div>
-            <p className="text-sm font-medium text-gray-900">Carbs</p>
+            <p className="text-xs sm:text-sm font-medium text-gray-900">Carbs</p>
             <p className="text-xs text-gray-600">{Math.round(todayTotals.carbs)}g / {nutritionGoals.carbs}g</p>
           </div>
 
           {/* Fats */}
           <div className="text-center">
-            <div className="relative w-20 h-20 mx-auto mb-3">
-              <svg className="w-20 h-20 transform -rotate-90">
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3">
+              <svg className="w-16 h-16 sm:w-20 sm:h-20 transform -rotate-90">
                 <circle
-                  cx="40"
-                  cy="40"
-                  r="36"
+                  cx="32"
+                  cy="32"
+                  r="28"
                   stroke="currentColor"
-                  strokeWidth="8"
+                  strokeWidth="6"
                   fill="none"
                   className="text-gray-200"
                 />
                 <circle
-                  cx="40"
-                  cy="40"
-                  r="36"
+                  cx="32"
+                  cy="32"
+                  r="28"
                   stroke="currentColor"
-                  strokeWidth="8"
+                  strokeWidth="6"
                   fill="none"
-                  strokeDasharray={`${2 * Math.PI * 36}`}
-                  strokeDashoffset={`${2 * Math.PI * 36 * (1 - getProgressPercentage(todayTotals.fats, nutritionGoals.fats) / 100)}`}
+                  strokeDasharray={`${2 * Math.PI * 28}`}
+                  strokeDashoffset={`${2 * Math.PI * 28 * (1 - getProgressPercentage(todayTotals.fats, nutritionGoals.fats) / 100)}`}
                   className="text-purple-600 transition-all duration-300"
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-sm font-bold text-gray-900">
+                <span className="text-xs sm:text-sm font-bold text-gray-900">
                   {Math.round(getProgressPercentage(todayTotals.fats, nutritionGoals.fats))}%
                 </span>
               </div>
             </div>
-            <p className="text-sm font-medium text-gray-900">Fats</p>
+            <p className="text-xs sm:text-sm font-medium text-gray-900">Fats</p>
             <p className="text-xs text-gray-600">{Math.round(todayTotals.fats)}g / {nutritionGoals.fats}g</p>
           </div>
         </div>
       </div>
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <button className="bg-white border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] rounded-lg p-4 hover:shadow-lg transition-all duration-300 text-left">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-              <BarChart3 className="w-5 h-5 text-blue-600" />
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+              <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
             </div>
             <div>
-              <p className="font-medium text-gray-900">Weekly Report</p>
-              <p className="text-sm text-gray-600">View nutrition trends</p>
+              <p className="text-sm sm:text-base font-medium text-gray-900">Weekly Report</p>
+              <p className="text-xs sm:text-sm text-gray-600">View nutrition trends</p>
             </div>
           </div>
         </button>
 
         <button className="bg-white border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] rounded-lg p-4 hover:shadow-lg transition-all duration-300 text-left">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-              <ShoppingCart className="w-5 h-5 text-green-600" />
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-100 rounded-lg flex items-center justify-center">
+              <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
             </div>
             <div>
-              <p className="font-medium text-gray-900">Meal Prep</p>
-              <p className="text-sm text-gray-600">Plan your meals</p>
+              <p className="text-sm sm:text-base font-medium text-gray-900">Meal Prep</p>
+              <p className="text-xs sm:text-sm text-gray-600">Plan your meals</p>
             </div>
           </div>
         </button>
 
         <button className="bg-white border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] rounded-lg p-4 hover:shadow-lg transition-all duration-300 text-left">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-              <Camera className="w-5 h-5 text-purple-600" />
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+              <Camera className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
             </div>
             <div>
-              <p className="font-medium text-gray-900">Scan Barcode</p>
-              <p className="text-sm text-gray-600">Quick food logging</p>
+              <p className="text-sm sm:text-base font-medium text-gray-900">Scan Barcode</p>
+              <p className="text-xs sm:text-sm text-gray-600">Quick food logging</p>
             </div>
           </div>
         </button>
@@ -611,7 +611,7 @@ const NutritionTab: React.FC = () => {
 
       {/* Today's Meals */}
       <div className="bg-white rounded-lg border border-[#e0e7ff] shadow-[0_2px_4px_rgba(0,0,0,0.05)] transition-all duration-300 hover:shadow-lg">
-        <div className="p-6 border-b border-gray-200">
+        <div className="p-4 sm:p-6 border-b border-gray-200">
           <h2 className="text-lg font-semibold text-gray-900">
             Meals for {new Date(selectedDate).toLocaleDateString()}
           </h2>
@@ -626,18 +626,18 @@ const NutritionTab: React.FC = () => {
               if (mealsOfType.length === 0) return null;
 
               return (
-                <div key={mealType} className="p-6">
+                <div key={mealType} className="p-4 sm:p-6">
                   <div className="flex items-center space-x-2 mb-4">
-                    <Icon className="w-5 h-5 text-gray-600" />
-                    <h3 className="text-lg font-medium text-gray-900 capitalize">{mealType}</h3>
+                    <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
+                    <h3 className="text-base sm:text-lg font-medium text-gray-900 capitalize">{mealType}</h3>
                   </div>
                   
                   <div className="space-y-3">
                     {mealsOfType.map(meal => (
-                      <div key={meal.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                        <div className="flex-1">
-                          <h4 className="font-medium text-gray-900">{meal.food_name}</h4>
-                          <div className="flex items-center space-x-4 text-sm text-gray-600 mt-1">
+                      <div key={meal.id} className="flex flex-col space-y-3 sm:flex-row sm:items-center sm:justify-between sm:space-y-0 p-3 sm:p-4 bg-gray-50 rounded-lg">
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-medium text-gray-900 text-sm sm:text-base truncate">{meal.food_name}</h4>
+                          <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600 mt-1">
                             <span>{meal.calories} cal</span>
                             <span>P: {Math.round(meal.protein)}g</span>
                             <span>C: {Math.round(meal.carbs)}g</span>
@@ -645,16 +645,19 @@ const NutritionTab: React.FC = () => {
                           </div>
                         </div>
                         
-                        <div className="flex items-center space-x-2">
+                        {/* Action Buttons - Mobile Optimized */}
+                        <div className="flex items-center justify-end space-x-1 sm:space-x-2 flex-shrink-0">
                           <button
                             onClick={() => startEdit(meal)}
-                            className="p-2 text-gray-400 hover:text-blue-600 transition-colors duration-200"
+                            className="p-2 text-gray-400 hover:text-blue-600 transition-colors duration-200 rounded-lg hover:bg-blue-50"
+                            title="Edit meal"
                           >
                             <Edit3 className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleDelete(meal.id)}
-                            className="p-2 text-gray-400 hover:text-red-600 transition-colors duration-200"
+                            className="p-2 text-gray-400 hover:text-red-600 transition-colors duration-200 rounded-lg hover:bg-red-50"
+                            title="Delete meal"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -667,15 +670,15 @@ const NutritionTab: React.FC = () => {
             })}
           </div>
         ) : (
-          <div className="p-12 text-center">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Apple className="w-8 h-8 text-gray-400" />
+          <div className="p-8 sm:p-12 text-center">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Apple className="w-6 h-6 sm:w-8 sm:h-8 text-gray-400" />
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No meals logged</h3>
-            <p className="text-gray-600 mb-6">Start tracking your nutrition for this day</p>
+            <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2">No meals logged</h3>
+            <p className="text-sm sm:text-base text-gray-600 mb-6">Start tracking your nutrition for this day</p>
             <button
               onClick={() => setShowAddForm(true)}
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200"
+              className="bg-blue-600 text-white px-4 sm:px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200"
             >
               Add Your First Meal
             </button>

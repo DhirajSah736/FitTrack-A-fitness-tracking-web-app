@@ -87,29 +87,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
   }, []);
 
-//   useEffect(() => {
-//   const handleOAuthRedirect = async () => {
-//     const hash = window.location.hash;
-//     if (hash.includes('access_token')) {
-//       const { data, error } = await supabase.auth.getSessionFromUrl({ storeSession: true });
-//       if (error) {
-//         console.error('OAuth redirect error:', error.message);
-//         toast.error('Google login failed.');
-//       } else {
-//         setSession(data.session);
-//         setUser(data.session?.user ?? null);
-//         console.log("OAuth session stored:", data.session);
-//         toast.success("Signed in with Google!");
-//         // Clean up URL
-//         window.history.replaceState({}, document.title, window.location.pathname);
-//       }
-//     }
-//   };
-
-//   handleOAuthRedirect();
-// }, []);
-
-
   const signUp = async (email: string, password: string, firstName: string, lastName: string): Promise<boolean> => {
     try {
       setLoading(true);
